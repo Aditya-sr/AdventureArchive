@@ -1,0 +1,4 @@
+{
+    "pkgs": ["php81", "composer", "nodejs-18_x", "yarn"]
+  }
+  
