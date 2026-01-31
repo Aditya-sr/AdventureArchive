@@ -1,4 +1,20 @@
 <div class="min-h-screen flex items-center justify-center relative overflow-hidden bg-gray-900">
+    <!-- CI/CD Deployment Status Banner -->
+    <div class="absolute top-0 left-0 right-0 z-30">
+        <div class="bg-gradient-to-r from-blue-600 to-green-600 text-white py-2 px-4 text-center">
+            <div class="flex justify-center items-center space-x-2">
+                <div class="flex items-center space-x-1">
+                    <svg class="w-4 h-4 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="font-semibold">CI/CD Pipeline Active</span>
+                </div>
+                <span class="hidden md:inline">|</span>
+                <span class="text-sm">Auto-deploy on push to main branch</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Mountain SVG Animation Background -->
     <div class="absolute inset-0 overflow-hidden z-0">
         <div class="mountain-animation">
@@ -18,21 +34,44 @@
     <div class="relative z-20 w-full max-w-md p-10 rounded-2xl shadow-lg text-white backdrop-blur-lg bg-opacity-75 bg-gradient-to-br from-gray-700 via-gray-800 to-black border border-gray-600 transform transition-transform duration-500 hover:scale-105"
         style="font-family: 'Poppins', sans-serif;">
 
-        <!-- Heading with Gradient Animation -->
-        <h2
-            class="text-4xl font-bold text-center mb-6 bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent animate-gradient">
-            Embark on Your Adventure</h2>
+        <!-- CI/CD Status Indicator -->
+        <div class="absolute -top-3 -right-3">
+            <div class="relative">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center shadow-lg">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </div>
+                <div class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-gray-800 animate-pulse"></div>
+            </div>
+        </div>
 
+        <!-- Heading with Gradient Animation -->
+        <h2 class="text-4xl font-bold text-center mb-6 bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent animate-gradient">
+            Embark on Your Adventure
+        </h2>
+
+        <!-- CI/CD Build Info -->
+        <div class="mb-4 p-3 bg-gray-800 rounded-lg border border-gray-700">
+            <div class="flex items-center justify-between text-sm">
+                <div class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>Build: v{{ $buildNumber ?? '1.0.0' }}</span>
+                </div>
+                <div class="text-gray-400">
+                    <span id="lastDeployed"></span>
+                </div>
+            </div>
+        </div>
 
         @if ($loginpage)
             <div class="text-center text-gray-300 mb-8">Sign in to start your journey</div>
 
-
             <form class="space-y-6">
-
                 <x-input wire:model="login.email" icon="mail" label="Email" placeholder="Enter your email"
                     class="bg-gray-600 font-semibold text-black placeholder-gray-400 focus:ring-2 focus:ring-blue-500 rounded-lg transition-all duration-300 transform hover:scale-105" />
-
 
                 <x-input wire:model="login.password" icon="lock-closed" label="Password"
                     placeholder="Enter your password" type="password" class="text-black"
@@ -91,6 +130,32 @@
                     class="transform hover:scale-105 transition-all duration-300 ease-in-out bg-gray-700 hover:bg-gray-800 shadow-md mt-2" />
             </div>
         @endif
+
+        <!-- CI/CD Pipeline Visualization -->
+        <div class="mt-8 pt-6 border-t border-gray-700">
+            <h3 class="text-sm font-semibold text-gray-300 mb-3 flex items-center">
+                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+                CI/CD Pipeline Status
+            </h3>
+            <div class="flex items-center justify-between mb-1">
+                <span class="text-xs text-gray-400">Push to GitHub</span>
+                <div class="w-4 h-4 rounded-full bg-green-500 animate-pulse"></div>
+            </div>
+            <div class="flex items-center justify-between mb-1">
+                <span class="text-xs text-gray-400">GitHub Actions Run</span>
+                <div class="w-4 h-4 rounded-full bg-green-500"></div>
+            </div>
+            <div class="flex items-center justify-between mb-1">
+                <span class="text-xs text-gray-400">Build & Test</span>
+                <div class="w-4 h-4 rounded-full bg-green-500"></div>
+            </div>
+            <div class="flex items-center justify-between">
+                <span class="text-xs text-gray-400">Auto Deploy</span>
+                <div class="w-4 h-4 rounded-full bg-green-500 animate-pulse"></div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -110,7 +175,6 @@
         0% {
             transform: translateX(0);
         }
-
         100% {
             transform: translateX(-5%);
         }
@@ -125,9 +189,50 @@
         0% {
             color: #76b852;
         }
-
         100% {
             color: #8DC26F;
         }
     }
+
+    /* CI/CD Status Animation */
+    @keyframes pipelineFlow {
+        0% {
+            transform: translateX(-100%);
+        }
+        100% {
+            transform: translateX(100%);
+        }
+    }
+
+    .pipeline-flow {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .pipeline-flow::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #3B82F6, transparent);
+        animation: pipelineFlow 2s infinite;
+    }
 </style>
+
+<script>
+    // Update last deployed timestamp
+    document.addEventListener('DOMContentLoaded', function() {
+        const now = new Date();
+        const formattedTime = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        const formattedDate = now.toLocaleDateString();
+        document.getElementById('lastDeployed').textContent = `Deployed: ${formattedDate} ${formattedTime}`;
+
+        // Simulate CI/CD pipeline flow
+        const pipelineSteps = document.querySelectorAll('.pipeline-flow');
+        pipelineSteps.forEach((step, index) => {
+            step.style.animationDelay = `${index * 0.5}s`;
+        });
+    });
+</script>
