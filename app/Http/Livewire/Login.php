@@ -11,7 +11,7 @@ use WireUi\Traits\Actions;
 
 class Login extends Component
 {
-    use Actions,WithFileUploads;
+    use Actions, WithFileUploads;
     public $name;
     public $email;
     public $password;
@@ -63,7 +63,7 @@ class Login extends Component
 
     public function register()
     {
-        // dd("Regsitration methode called");s
+        // dd("Regsitration methode called");
         $imagePath = null;
         if (isset($this->image)) {
             $imagePath = $this->image->store('journey-image', 'public');
@@ -73,14 +73,14 @@ class Login extends Component
             'name' => $this->name,
             'email' => $this->email,
             'password' => Hash::make($this->password),
-            'profile_image' => $imagePath ?? null, // Store the first image path or null
+            'profile_image' => $imagePath ?? null,
 
         ]);
         // Auth::login($user);
         $this->reset(['name', 'email', 'password']);
         $message = "You have successfully registered";
         $this->notification()->success($message);
-        // return redirect()->route('login');
+        return redirect()->route('login');
     }
 
     public function render()

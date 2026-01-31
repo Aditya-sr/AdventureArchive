@@ -57,8 +57,8 @@
             <form class="space-y-6">
                 <div class="flex flex-col items-center mb-4">
                     @if ($image)
-                        <img src="{{ $image->temporaryUrl() }}"
-                            class="w-20 h-20 rounded-full border-4 border-blue-500 shadow-md transform hover:scale-110 transition-transform duration-300"
+                    <img
+                    src="https://aditya-s3-learning-2026.s3.ap-south-1.amazonaws.com/IMG_20240421_134739.jpg"                            class="w-20 h-20 rounded-full border-4 border-blue-500 shadow-md transform hover:scale-110 transition-transform duration-300"
                             alt="Profile Preview" />
                     @else
                         <img src="https://via.placeholder.com/150"
